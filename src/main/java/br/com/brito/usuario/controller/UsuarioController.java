@@ -1,6 +1,8 @@
 package br.com.brito.usuario.controller;
 
 import br.com.brito.usuario.business.UsuarioService;
+import br.com.brito.usuario.business.dto.EnderecoDTO;
+import br.com.brito.usuario.business.dto.TelefoneDTO;
 import br.com.brito.usuario.business.dto.UsuarioDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,24 @@ public class UsuarioController {
     public ResponseEntity<Void> deletaUsuarioPorEmail(@PathVariable String email) {
         usuarioService.deletaUsuarioPorEmail(email);
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping
+    public ResponseEntity<UsuarioDTO> atualizDadoUsuario(@RequestBody UsuarioDTO dto,
+                                                         @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(usuarioService.atualizaDadosUsuario(token, dto));
+    }
+
+    @PutMapping("/endereco")
+    public ResponseEntity<EnderecoDTO> atualizaEndereco(@RequestBody EnderecoDTO dto,
+                                                        @RequestParam("id") Long id){
+        return ResponseEntity.ok(usuarioService.atualizaEndereco(id, dto));
+    }
+
+    @PutMapping("/telefone")
+    public ResponseEntity<TelefoneDTO> atualizaTelefone(@RequestBody TelefoneDTO dto,
+                                                        @RequestParam("id") Long id){
+        return ResponseEntity.ok(usuarioService.atualizaTelefone(id, dto));
     }
 
 }

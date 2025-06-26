@@ -1,10 +1,8 @@
 package br.com.brito.usuario.infrastructure.security;
 
 
-
 import br.com.brito.usuario.infrastructure.entity.Usuario;
 import br.com.brito.usuario.infrastructure.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,8 +12,12 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     // Repositório para acessar dados de usuário no banco de dados
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+
+    private final UsuarioRepository usuarioRepository;
+
+    public UserDetailsServiceImpl(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     // Implementação do método para carregar detalhes do usuário pelo e-mail
     @Override
